@@ -19,7 +19,7 @@ from utils.Log import *
 from config import config_global
 
 
-class RunTest(object):
+class TestRun(object):
     def __init__(self):
         self.run_method = RunMethod()
         self.data = GetData()
@@ -28,17 +28,17 @@ class RunTest(object):
         self.excel = OperationExcel()
         self.sheet_obj = self.excel.get_data()
 
-    def go_run(self):
+    def test_run(self):
 
         res = None
         pass_count = []
         fail_count = []
         skip_count = []
-
+        # 获取多少行
         rows_count = self.data.get_case_lines()
 
         for i in range(2, rows_count + 1):
-            run_num = [3, 1]
+            run_num = [2, 1]
             is_run = self.data.get_is_run(i)
             message = self.data.get_api_msg(i)
             api_name = self.data.get_api_name(i)
@@ -85,15 +85,16 @@ class RunTest(object):
                 depend_case = self.data.is_depend(i)
 
                 if depend_case != None:
-
                     self.depend_data = DependentData(depend_case)
-
+                    # 获取的依赖响应
                     depend_response_data = self.depend_data.get_data_for_key(i)
 
+                    # 获取依赖的key
                     depend_key = self.data.get_depend_field(i)
 
+                    # 更新参数值
                     data[depend_key] = depend_response_data
-
+                '''待提取的key'''
                 if wait_key != None:
 
                     try:
@@ -118,12 +119,14 @@ class RunTest(object):
                 def fail_run():
                     response = self.run_method.run_main(method, url, data, header)
                     res = response[0]
+                    # print('response---->',response)
+                    # print('res---->',res)
                     global http_code
                     http_code = response[1]
 
-                # print(type(http_code), http_code)
+                    # print(type(http_code), http_code)
 
-                # 断言
+                    # 断言
 
                     if int(code) == http_code:
 
@@ -133,15 +136,14 @@ class RunTest(object):
                             pass_count.append(i)
 
                             if depend_Value != None:
-
                                 self.depend_data = DependentData(depend_case)
                                 self.depend_data.save_depend_value(res, depend_Value, set_key)
+
 
                         else:
                             fail = run_num[0]
                             fail -= 1
                             run_num[0] = fail
-
 
                             while run_num[0]:
                                 fail_num = run_num[1]
@@ -155,6 +157,7 @@ class RunTest(object):
 
                             writeTestResult(excelObj.get_data(), rowNo=i, testResult='faild', errorInfo=res)
                             fail_count.append(i)
+
 
                     else:
                         fail = run_num[0]
@@ -178,8 +181,8 @@ class RunTest(object):
                 fail_run()
             else:
                 logging.info('%s接口:%s->接口不执行' % (api_name, message))
-                # skip_count.append(i)
-                # writeTestResult(excelObj.get_data(), rowNo=i, testResult='skip')
+                skip_count.append(i)
+                writeTestResult(excelObj.get_data(), rowNo=i, testResult='skip')
 
             # 发送邮件
         logging.info("正在发送邮件，请等待。。。")
@@ -187,5 +190,6 @@ class RunTest(object):
 
 
 if __name__ == '__main__':
-    run = RunTest()
-    run.go_run()
+    # run = RuTest()
+    # run.test_run()
+    pass

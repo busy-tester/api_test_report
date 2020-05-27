@@ -16,11 +16,11 @@ class RunMethod(object):
         try:
             res = None
             if header != None:
-                http_code = s.post(url=url, json=data, timeout=10, headers=header, verify=False)
-                res=http_code.json()
+                http_code = s.post(url=url, json=data, timeout=100, headers=header, verify=False)
+                res = http_code.json()
 
             else:
-                http_code = s.post(url=url, json=data, timeout=10, verify=False)
+                http_code = s.post(url=url, json=data, timeout=100, verify=False)
                 res = http_code.json()
 
             return res, http_code.status_code
@@ -32,10 +32,10 @@ class RunMethod(object):
         try:
             res = None
             if header != None:
-                http_code = s.get(url=url, json=data, headers=header, timeout=10, verify=False)
+                http_code = s.get(url=url, json=data, headers=header, timeout=100, verify=False)
                 res = http_code.json()
             else:
-                http_code = s.get(url=url, json=data, timeout=10, verify=False)
+                http_code = s.get(url=url, json=data, timeout=100, verify=False)
                 res = http_code.json()
             return res, http_code.status_code
             # return res.text
@@ -49,7 +49,6 @@ class RunMethod(object):
                 res = self.post_main(url, data, header)
                 code = res[1]
                 resp = res[0]
-
 
             else:
                 res = self.get_main(url, data, header)

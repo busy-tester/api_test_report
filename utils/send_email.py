@@ -4,8 +4,8 @@ from utils.Log import *
 from config.config_global import *
 from base.common_method import *
 
-from email.header import Header
-from email.mime.multipart import MIMEMultipart
+from email.header import Header #定义邮件标题
+from email.mime.multipart import MIMEMultipart #用于传送附件
 
 
 class SendEmail(object):

@@ -4,6 +4,8 @@ from utils.operation_json import OperationJson
 from utils.Log import *
 import json
 
+'''获取excel里的数据'''
+
 
 class GetData(object):
 
@@ -11,11 +13,15 @@ class GetData(object):
         self.opera_excel = OperationExcel()
         self.sheet = self.opera_excel.get_data()
 
+    '''获取excel的行数，就是我们的case个数'''
+
     def get_case_lines(self):
         try:
             return self.opera_excel.get_lines()
         except Exception as e:
             logging.info("错误为：", e)
+
+    '''获取是否执行'''
 
     def get_is_run(self, row):
         try:
@@ -30,6 +36,8 @@ class GetData(object):
         except Exception as e:
             logging.info("错误为：", e)
 
+    '''获取接口描述'''
+
     def get_api_msg(self, row):
         try:
             col = get_request_name()
@@ -38,6 +46,8 @@ class GetData(object):
         except Exception as e:
             logging.info("错误为：", e)
 
+    '''获取接口名称'''
+
     def get_api_name(self, row):
         try:
             col = get_api_name()
@@ -45,6 +55,8 @@ class GetData(object):
             return api_name
         except Exception as e:
             logging.info("错误为：", e)
+
+    '''是否携带header'''
 
     def get_request_headers(self, row):
         try:
@@ -55,6 +67,8 @@ class GetData(object):
             return header
         except Exception as e:
             logging.info("错误为：", e)
+
+    '''是否有header'''
 
     def is_header(self, row):
         try:
@@ -72,6 +86,8 @@ class GetData(object):
         except Exception as e:
             logging.info("错误为：", e)
 
+    '''获取请求方式'''
+
     def get_request_method(self, row):
         try:
             col = get_run_way()
@@ -79,6 +95,8 @@ class GetData(object):
             return request_method
         except Exception as e:
             logging.info("错误为：", e)
+
+    '''获取url'''
 
     def get_request_url(self, row):
         try:
@@ -100,6 +118,8 @@ class GetData(object):
         except Exception as e:
             logging.info("错误为：", e)
 
+    '''通过获取关键字拿到data数据'''
+
     def get_data_for_json(self, row):
         try:
             opera_json = OperationJson()
@@ -107,6 +127,8 @@ class GetData(object):
             return request_data
         except Exception as e:
             logging.info("错误为：", e)
+
+    '''获取要提取的字段的值'''
 
     def get_depend_value(self, row):
         try:
@@ -118,6 +140,8 @@ class GetData(object):
         except Exception as e:
             logging.info("错误为：", e)
 
+    '''获取预期结果'''
+
     def get_expect_data(self, row):
         try:
             col = get_expect()
@@ -128,6 +152,8 @@ class GetData(object):
         except Exception as e:
             logging.info("错误为：", e)
 
+    '''获取http状态码'''
+
     def get_http_code_data(self, row):
         try:
             col = get_http_code()
@@ -135,6 +161,8 @@ class GetData(object):
             return http_code
         except Exception as e:
             logging.info("错误为：", e)
+
+    '''获取待替换的值'''
 
     def get_waiting_replace_key(self, row):
         try:
@@ -145,6 +173,8 @@ class GetData(object):
             return wait_rep_key
         except Exception as e:
             logging.info('错误为：', e)
+
+    '''获取实际替换的值'''
 
     def get_actual_replace_key(self, row):
         try:
@@ -189,6 +219,8 @@ class GetData(object):
         except Exception as e:
             logging.info("错误为：", e)
 
+    '''获取数据依赖字段'''
+
     def get_depend_field(self, row):
         try:
             col = get_field_depend()
@@ -199,6 +231,8 @@ class GetData(object):
                 return data
         except Exception as e:
             logging.info("错误为：", e)
+
+    '''获取请求方式'''
 
     def get_set_key(self, row):
         try:

@@ -3,6 +3,7 @@ from utils.Log import *
 from config.config_global import *
 
 
+# 获取当前时间
 def nowTime():
     now = int(time.time())
     timeArray = time.localtime(now)
@@ -10,9 +11,10 @@ def nowTime():
     return currentTime
 
 
+# 获取手机号
 def mobile():
     time_stamp = str(time.time())
-    phone = phone_num+time_stamp.split('.')[0][2:]
+    phone = phone_num + time_stamp.split('.')[0][2:]
     return phone
 
 
